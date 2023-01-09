@@ -1,12 +1,23 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+}
+
 provider "aws" {
   region = "us-east-1"
+  #  secret_key = ""
+  #  access_key = ""
 }
 
 # PostgreSQL worker node
 resource "aws_instance" "postgresql_worker_node" {
-  ami = "ami-0f65671a86f061fcd"
-  instance_type = "t2.micro"
-  key_name = "my-key-pair"
+  ami = var.myami
+  instance_type = var.controlinstancetype
+  key_name = var.mykey,
   security_groups = ["sg-0e5d2c7d68b1b5c61"]
 
   connection {
